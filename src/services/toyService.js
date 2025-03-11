@@ -1,12 +1,10 @@
 import { storageService } from "./storageService";
 
-
-const ENTITY_TYPE ='toys';
-
+const ENTITY_TYPE = 'toys';
 
 const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'];
 
-const backupToys  = [
+const backupToys = [
     {
         _id: 't101',
         name: 'Talking Doll',
@@ -27,10 +25,11 @@ const backupToys  = [
     },
 ];
 
-function _initToys() {
-    if(!storageService.query(ENTITY_TYPE).length)
-        backupToys.forEach(toy => storageService.post(ENTITY_TYPE, toy));
-    
+async function _initToys() {
+    const toys = await storageService.query(ENTITY_TYPE);
+    if (!toys.length) {
+        await Promise.all(backupToys.map(toy => storageService.post(ENTITY_TYPE, toy)));
+    }
 }
 
 _initToys();
@@ -43,27 +42,20 @@ export const toyService = {
     getLabels
 };
 
-
-
-
-function getToys() {
-    return storageService.query(ENTITY_TYPE);
-    
+async function getToys() {
+    return await storageService.query(ENTITY_TYPE);
 }
 
-function getToyById(toyId) {
-    return storageService.get(ENTITY_TYPE, toyId);
-    
+async function getToyById(toyId) {
+    return await storageService.get(ENTITY_TYPE, toyId);
 }
 
-function saveToy(toy) {
-    return toy._id ? storageService.put(ENTITY_TYPE, toy) : storageService.post(ENTITY_TYPE, toy)
-    
+async function saveToy(toy) {
+    return toy._id ? await storageService.put(ENTITY_TYPE, toy) : await storageService.post(ENTITY_TYPE, toy);
 }
 
-function deleteToy(toyId) {
-    return storageService.remove(ENTITY_TYPE, toyId);
-    
+async function deleteToy(toyId) {
+    return await storageService.remove(ENTITY_TYPE, toyId);
 }
 
 function getLabels() {

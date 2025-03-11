@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toyService } from '../services/toyService';
 import { setToys, removeToy } from '../store/toySlice'; 
 import { ToyList } from '../components/ToyList'; 
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -12,6 +13,7 @@ import { ToyList } from '../components/ToyList';
 export function ToyIndex() {
     const dispatch = useDispatch();
     const { toys, filterBy} = useSelector(state => state.toy);
+    const navigate = useNavigate();
 
     useEffect(()=>{
 
@@ -55,6 +57,7 @@ export function ToyIndex() {
 
     return(<div>
         <h1>Our Toys</h1>
+        <button onClick={() => navigate('/toy/edit')}>➕ Add New Toy</button>
         <ToyFilter />
         <ToyList toys={toys} onRemoveToy={onRemoveToy} />
     </div>
