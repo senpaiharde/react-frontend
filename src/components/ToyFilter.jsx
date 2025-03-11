@@ -1,25 +1,30 @@
-import React, {useState, useEffect} from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { setFilter } from "../store/toySlice";
-import { toyService } from "../services/toyService";
-import { debounce, sortBy } from "lodash";
+import React, { useState, useEffect } from 'react'; 
+import { useDispatch, useSelector } from 'react-redux'; 
+import { setFilter } from '../store/toySlice'; 
+import { toyService } from '../services/toyService'; 
+import { debounce } from 'lodash'; 
 
-export function toyFilter() {
+
+export function ToyFilter() {
     const dispatch = useDispatch();
     const filterBy = useSelector(state => state.toy.filterBy);
-    const [filter, SetLocalFilter] = useState(filterBy);
-    const label = toyService.getLabels()
+    const [filter, setLocalFilter] = useState(filterBy);
+    const labels = toyService.getLabels()
 
     const debouncedFilterByName = debounce(value => {
         dispatch(setFilter({ ...filter, name: value }));
     }, 300);
 
     useEffect(() => {
+        setLocalFilter(filterBy);
+    }, [filterBy]);
+
+    useEffect(() => {
         return () => debouncedFilterByName.cancel();
-    }, []);
+    }, [debouncedFilterByName]);
 
     const handleNameChange = e => {
-        SetLocalFilter(prevFilter => ({...prevFilter, name:e.target.value}));
+        setLocalFilter(prevFilter => ({...prevFilter, name:e.target.value}));
         debouncedFilterByName(e.target.value)
     };
 
@@ -32,7 +37,7 @@ export function toyFilter() {
 
     const handleLabelsChange = e => {
         const selectedLabels = Array.from(e.target.selectedOptions, option => option.value);
-        dispatch(setFilter({...filter, label:selectedLabels}));
+        dispatch(setFilter({...filter, labels: selectedLabels}));
     }
 
 
@@ -43,6 +48,34 @@ export function toyFilter() {
 
 
 
-    return()
+    return(
+    <div className="toy-filter">
+        <input 
+        type="text"
+        placeholder="Search"
+        onChange={handleNameChange}
+        />
+
+        <select onChange={handleStockChange} value={filter.inStock ?? 'all'}>
+            <option value="all">All</option>
+            <option value="true">in Stock</option>
+            <option value="false">Out of Stock</option>
+        </select>
+
+        <select onChange={handleLabelsChange} value={filter.label}>
+            {labels.map(label => (
+                <option key={label} value={label}>{label}</option>
+            ))}
+            
+        </select>
+
+        <select onChange={handleSortChange} value={filter.sortBy}>
+            <option value="">Sort by</option>
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+            <option value="created">created Date</option>
+        </select>
+    </div>
+    );
 
 }
