@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toyService } from "../services/toyService";
+import { NicePopup } from "../components/nicePopup";
+import { Chat } from "../components/chat";
 
 
 export function ToyDetails() {
     const { toyId } = useParams();
     const navigate = useNavigate();
+    const [isChatOpen, setIsChatOpen] = useState(false);
 
     const selectedToy = useSelector(state => state.toy.toys.find(toy => toy._id === toyId)) || toyService.getToyById(toyId);
 
@@ -21,7 +24,16 @@ export function ToyDetails() {
             <p><strong>Created At:</strong>{new Date(selectedToy.createdAt).toLocaleDateString()}</p>
             <p><strong>Status:</strong>{selectedToy.inStock ? "✅ In Stock" : "❌ Out of Stock"}</p>
 
-            <button onClick={navigate(-1)}>🔙 Go Bac</button>
+            <button onClick={() => navigate(-1)}>🔙 Go Back</button>
+            <button onClick={() => navigate(`/toy/edit/${selectedToy._id}`)}>✏️ Edit</button>
+            <button onClick={()=> setIsChatOpen(true)}>💬 Chat</button>
+
+            <NicePopup isOpen={isChatOpen} 
+            onClose={()=> setIsChatOpen(false)}
+            header="Chat with Support"
+            footer={<button onClick={()=> setIsChatOpen(false)}>clase</button>}>
+                <Chat/>
+            </NicePopup>
         </div>
     )
 }
