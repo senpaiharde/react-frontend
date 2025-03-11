@@ -1,6 +1,12 @@
+import { storageService } from "./storageService";
+
+
+const ENTITY_TYPE ='toys';
+
+
 const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'];
 
-const toys = [
+const backupToys  = [
     {
         _id: 't101',
         name: 'Talking Doll',
@@ -21,13 +27,43 @@ const toys = [
     },
 ];
 
+function _initToys() {
+    if(!storageService.query(ENTITY_TYPE).length)
+        backupToys.forEach(toy => storageService.post(ENTITY_TYPE, toy));
+    
+}
+
+_initToys();
+
 export const toyService = {
     getToys,
+    getToyById,
+    saveToy,
+    deleteToy,
     getLabels
 };
 
+
+
+
 function getToys() {
-    return toys;
+    return storageService.query(ENTITY_TYPE);
+    
+}
+
+function getToyById(toyId) {
+    return storageService.get(ENTITY_TYPE, toyId);
+    
+}
+
+function saveToy(toy) {
+    return toy._id ? storageService.put(ENTITY_TYPE, toy) : storageService.post(ENTITY_TYPE, toy)
+    
+}
+
+function deleteToy(toyId) {
+    return storageService.remove(ENTITY_TYPE, toyId);
+    
 }
 
 function getLabels() {
