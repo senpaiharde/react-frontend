@@ -26,7 +26,9 @@ export function ToyDetails() {
     return (
         <div className="toy-details">
             <h1>{selectedToy.name}</h1>
-            <img src={selectedToy.imgUrl} alt={selectedToy.name}/>
+            <img src={selectedToy.imgUrl || "https://placehold.co/100x100"} alt={selectedToy.name}
+            onError={(e) => e.target.src = "https://placehold.co/100x100"}  />
+
             <p><strong>Price:</strong>{selectedToy.price}</p>
             <p><strong>Labels:</strong>{selectedToy.labels?.join(', ') || 'No Labels'}</p>
             <p><strong>Created At:</strong>{new Date(selectedToy.createdAt).toLocaleDateString()}</p>

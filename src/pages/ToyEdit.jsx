@@ -60,6 +60,9 @@ export function ToyEdit() {
     const hanldeSubmit = async e => {
         e.preventDefault();
         try{
+            if(!toy.imgUrl){
+                toy.imgUrl = "https://placehold.co/100x100";
+            }
             if(toy._id){
                 const updatedToy = await toyService.saveToy(toy);
                 dispatch(updateToyAsync(updatedToy));

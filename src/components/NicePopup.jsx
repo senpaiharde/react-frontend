@@ -17,7 +17,7 @@ export function NicePopup({isOpen, onClose, header, footer, children }) {
     }, [isOpen, onClose]);
 
     const handleOutsideClick = (event) => {
-        if(event.target.className.contains('popup-overlay')){
+        if(event.target.classList.contains('popup-overlay')) {
             onClose();
         }
     };

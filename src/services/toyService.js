@@ -8,7 +8,7 @@ const backupToys = [
     {
         _id: 't101',
         name: 'Talking Doll',
-        imgUrl: 'https://via.placeholder.com/100',
+        imgUrl: 'https://placehold.co/100x100',
         price: 123,
         labels: ['Doll', 'Battery Powered', 'Baby'],
         createdAt: Date.now(),
@@ -17,7 +17,7 @@ const backupToys = [
     {
         _id: 't102',
         name: 'Puzzle Game',
-        imgUrl: 'https://via.placeholder.com/100',
+        imgUrl: 'https://placehold.co/100x100',
         price: 45,
         labels: ['Puzzle', 'Box game'],
         createdAt: Date.now(),
