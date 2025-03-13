@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {useNavigate, useParams } from "react-router-dom";
 import { toyService } from "../services/toyService";
-import { addToy, updateToy } from "../store/toySlice";
+import { addToyAsync, updateToyAsync } from "../store/toySlice";
 import { useUnsavedChanges } from "../hooks/useUnsavedChanges";
 
 
@@ -62,10 +62,10 @@ export function ToyEdit() {
         try{
             if(toy._id){
                 const updatedToy = await toyService.saveToy(toy);
-                dispatch(updateToy(updatedToy));
+                dispatch(updateToyAsync(updatedToy));
             } else{
                 const newToy = await toyService.saveToy(toy);
-                dispatch(addToy(newToy));
+                dispatch(addToyAsync(newToy));
             }
             setIsDirty(false);
             navigate('/toys');
@@ -96,7 +96,7 @@ export function ToyEdit() {
         </select>
 
         <label>In Stock:</label>
-        <input type="checkbox" value={toy.inStock} onChange={handleCheckBoxChange} required/>
+        <input type="checkbox" checked={toy.inStock} onChange={handleCheckBoxChange} required/>
 
         <button type="submit">💾 Save</button>
         <button type="button" onClick={() => navigate('/toys')}>❌ Cancel</button>

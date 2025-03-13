@@ -25,12 +25,10 @@ const backupToys = [
     },
 ];
 
-async function _initToys() {
-    const toys = await storageService.query(ENTITY_TYPE);
+function _initToys() {
+    const toys =  storageService.query(ENTITY_TYPE);
     if (!toys.length) {
-        for(const toy of backupToys){
-            await storageService.post(ENTITY_TYPE, toy)
-        }
+        backupToys.forEach(toy => storageService.post(ENTITY_TYPE, toy));
     }
 }
 
@@ -44,19 +42,19 @@ export const toyService = {
     getLabels
 };
 
-async function getToys() {
+function getToys() {
     return storageService.query(ENTITY_TYPE);
 }
 
-async function getToyById(toyId) {
+function getToyById(toyId) {
     return storageService.get(ENTITY_TYPE, toyId);
 }
 
-async function saveToy(toy) {
+function saveToy(toy) {
     return toy._id ?  storageService.put(ENTITY_TYPE, toy) : storageService.post(ENTITY_TYPE, toy);
 }
 
-async function deleteToy(toyId) {
+function deleteToy(toyId) {
     return  storageService.remove(ENTITY_TYPE, toyId);
 }
 
