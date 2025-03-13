@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
 
+// global inside store easy to accuss closes in clicking ouside or qescape .
 
 
-
-export function NicePopup({isOpen, onClose, header, footer, childern}) {
+export function NicePopup({isOpen, onClose, header, footer, children }) {
     useEffect(()=> {
 
         const handleKeyDown = (event) => {
@@ -13,7 +13,7 @@ export function NicePopup({isOpen, onClose, header, footer, childern}) {
             }
         };
         if(isOpen) window.addEventListener('keydown', handleKeyDown);
-        return () => window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, onClose]);
 
     const handleOutsideClick = (event) => {
@@ -31,7 +31,7 @@ export function NicePopup({isOpen, onClose, header, footer, childern}) {
                 <h3>{header}</h3>
                 <button onClick={onclose}>❌</button>
             </header>
-            <main className="popup-main">{childern}</main>
+            <main className="popup-main">{children}</main>
             <footer className="popup-footer">{footer}</footer>
         </div>
 

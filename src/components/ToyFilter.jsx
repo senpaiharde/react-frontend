@@ -53,6 +53,7 @@ export function ToyFilter() {
         <input 
         type="text"
         placeholder="Search"
+        value={filter.name}
         onChange={handleNameChange}
         />
 
@@ -62,7 +63,7 @@ export function ToyFilter() {
             <option value="false">Out of Stock</option>
         </select>
 
-        <select onChange={handleLabelsChange} value={filter.label}>
+        <select multiple onChange={handleLabelsChange} value={filter.labels}>
             {labels.map(label => (
                 <option key={label} value={label}>{label}</option>
             ))}
