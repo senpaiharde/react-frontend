@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import {useNavigate, useParams } from "react-router-dom";
 import { toyService } from "../services/toyService";
 import { addToy, updateToy } from "../store/toySlice";
+import { useUnsavedChanges } from "../hooks/useUnsavedChanges";
 
 
 
@@ -13,49 +14,73 @@ export function ToyEdit() {
     const dispatch = useDispatch();
 
 
-    const [toy, setToy] = useState(
-        toyId ? toyService.getToyById(toyId) : {name:'', price:'', labels:[], inStock:true}
-    );
+    const [toy, setToy] = useState(null)
+    const [isLoading, setIsLoading] = useState(true);
+    const [isDirty, setIsDirty] = useState(false);
 
-    useEffect(() => {
-        if(toyId) {
-            const fetchToy = async () =>  {
+    useUnsavedChanges(isDirty);
+
+    useEffect(()=>{
+        const fetchToy = async() => {
+            if(toyId) {
                 const existingToy = await toyService.getToyById(toyId);
-                if(existingToy) setToy(existingToy);
-            };
-            fetchToy();
-        }
-    }, [toyId]);
+                if(existingToy){
+                    setToy(existingToy);
+                }else{
+                    alert("Toy not Found!");
+                    navigate('/toys')
+                }
+            }else{
+                setToy({name:'', price:'', label:[], inStock:true});
+            }
+            setIsLoading(false);
+        };
+        fetchToy();
+    },[toyId, navigate])
+      
 
     const handleChange = e => {
         const {name, value} = e.target;
-        setToy(prevToy => ({...prevToy, [name]: value}))
+        setToy(prevToy => ({...prevToy, [name]: value}));
+        setIsDirty(true);
     };
 
      const handleCheckBoxChange = e => {
         setToy(prevToy => ({...prevToy, inStock: e.target.checked}))
+        setIsDirty(true);
     };
 
     const handleLabelsChange = e => {
         const selectedLabels = Array.from(e.target.selectedOptions, option => option.value)
         setToy(prevToy => ({...prevToy, labels: selectedLabels}));
+        setIsDirty(true);
     }
 
 
     const hanldeSubmit = async e => {
         e.preventDefault();
-        if(toy._id){
-            const updatedToy = await toyService.saveToy(toy);
-            dispatch(updateToy(updatedToy));
-        }else{
-            const newToy = await toyService.saveToy(toy);
-            dispatch(addToy(newToy));
+        try{
+            if(toy._id){
+                const updatedToy = await toyService.saveToy(toy);
+                dispatch(updateToy(updatedToy));
+            } else{
+                const newToy = await toyService.saveToy(toy);
+                dispatch(addToy(newToy));
+            }
+            setIsDirty(false);
+            navigate('/toys');
+        }catch(error){
+            alert("error saving Toy:"+ error.meesage);
         }
-        navigate('/toys');
     };
+
+    if(isLoading)return<p>Loading...</p>
 
    return(<div className="toy-edit">
     <h1>{toyId ? 'edit Toy' : 'Create Toy'}</h1>
+       {isDirty && <p className="unsaved-warning">⚠ You have unsaved changes!</p>}
+
+
     <form onSubmit={hanldeSubmit}>
         <label>Name:</label>
         <input type="text" name="name" value={toy.name} onChange={handleChange} required/>

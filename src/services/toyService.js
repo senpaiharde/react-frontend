@@ -28,7 +28,9 @@ const backupToys = [
 async function _initToys() {
     const toys = await storageService.query(ENTITY_TYPE);
     if (!toys.length) {
-        await Promise.all(backupToys.map(toy => storageService.post(ENTITY_TYPE, toy)));
+        for(const toy of backupToys){
+            await storageService.post(ENTITY_TYPE, toy)
+        }
     }
 }
 
@@ -43,19 +45,19 @@ export const toyService = {
 };
 
 async function getToys() {
-    return await storageService.query(ENTITY_TYPE);
+    return storageService.query(ENTITY_TYPE);
 }
 
 async function getToyById(toyId) {
-    return await storageService.get(ENTITY_TYPE, toyId);
+    return storageService.get(ENTITY_TYPE, toyId);
 }
 
 async function saveToy(toy) {
-    return toy._id ? await storageService.put(ENTITY_TYPE, toy) : await storageService.post(ENTITY_TYPE, toy);
+    return toy._id ?  storageService.put(ENTITY_TYPE, toy) : storageService.post(ENTITY_TYPE, toy);
 }
 
 async function deleteToy(toyId) {
-    return await storageService.remove(ENTITY_TYPE, toyId);
+    return  storageService.remove(ENTITY_TYPE, toyId);
 }
 
 function getLabels() {

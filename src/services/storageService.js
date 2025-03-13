@@ -1,19 +1,26 @@
 export const storageService = {
-    query,get,post,remove,put
+    query,
+    get,
+    post,
+    remove,
+    put
 };
 
 function query(entityType) {
-    return JSON.parse(localStorage.get(entityType))  || [];
+    const entities = JSON.parse(localStorage.get(entityType))  || "[]";
+    return entities;
     
 }
 
 function get(entityType, entityId) {
-    return query(entityType.find(entity => entity._id === entityId))
+    const entities = query(entityType);
+    return entities.find(entity => entity._id === entityId) || null;
     
 }
 function post(entityType, newEntity) {
     const entities = query(entityType);
     newEntity._id = _makeId();
+    entities.push(newEntity);
     localStorage.setItem(entityType, JSON.stringify(entities));
     return newEntity;
     
@@ -21,7 +28,7 @@ function post(entityType, newEntity) {
 function put(entityType, updatedEntity) {
     let entities = query(entityType);
     const idx = entities.findIndex(entity => entity._id === updatedEntity._id);
-    entities[idx] = updatedEntity;
+    if(idx !== -1 )entities[idx] = updatedEntity;
     localStorage.setItem(entityType, JSON.stringify(entities));
     return updatedEntity;
     

@@ -4,6 +4,7 @@ import { toyService } from '../services/toyService';
 import { setToys, removeToy } from '../store/toySlice'; 
 import { ToyList } from '../components/ToyList'; 
 import { useNavigate } from 'react-router-dom';
+import { ToyFilter } from '../components/toyFilter';
 
 
 
