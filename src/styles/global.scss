@@ -1,0 +1,70 @@
+@use './variables' as *;
+@use "./mixins";
+@use "./themes";
+@use './typography';
+
+@use './layout/container';
+@use './layout/footer';
+@use './layout/header';
+
+@use './components/chat';
+@use './components/homepage';
+@use './components/popup';
+@use './components/toydetails';
+@use './components/toyfilter';
+@use './components/toyindex';
+@use './components/toylist';
+@use './components/toypreview';
+
+
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ✅ Default styles for common elements */
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: $bg-color;
+  color: $text-light;
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ✅ Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ✅ Images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ✅ Lists */
+ul, ol {
+  list-style: none;
+}
+
+/* ✅ Buttons */
+
+
+/* ✅ Forms */
+input, textarea, select {
+  font: inherit;
+}
+
+/* ✅ Utility class for centering */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}

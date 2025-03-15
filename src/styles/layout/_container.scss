@@ -1,0 +1,34 @@
+@use "../variables" as *;
+@use "../mixins" as *;  
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $spacing-md;
+
+    @include respond(mobile) {
+        width: 95%;
+        padding: $spacing-sm;
+    }
+}
+
+/*  Grid-based Toy Listings */
+.toy-grid {
+    @include grid-layout(5, $spacing-md);
+
+    @include respond(tablet) {
+        @include grid-layout(3, $spacing-md);
+    }
+
+    @include respond(mobile) {
+        @include grid-layout(2, $spacing-sm);
+    }
+}
+
+/*  Centered Content */
+.center-content {
+    @include flex-center;
+    flex-direction: column;
+    text-align: center;
+}

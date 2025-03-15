@@ -1,0 +1,24 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.footer {
+    background-color: $dark-bg;
+    color: $text-light;
+    padding: $spacing-lg;
+    text-align: center;
+
+    a {
+        color: $secondary-color;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: lighten($secondary-color, 10%);
+        }
+    }
+
+    @include respond(mobile) {
+        padding: $spacing-md;
+        font-size: $font-small;
+    }
+}

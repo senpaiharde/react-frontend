@@ -1,0 +1,55 @@
+@use './variables' as *;
+
+/* ✅ Responsive Breakpoints */
+@mixin respond($breakpoint) {
+    @if $breakpoint == mobile {
+        @media (max-width: $mobile) { @content; }
+    }
+    @else if $breakpoint == tablet {
+        @media (max-width: $tablet) { @content; }
+    }
+    @else if $breakpoint == desktop {
+        @media (max-width: $desktop) { @content; }
+    }
+}
+
+/*  Box Shadow */
+@mixin box-shadow {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/*  Font Styling */
+@mixin font-style($size, $weight: normal, $color: inherit) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+}
+
+/* Flexbox Utility */
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*  Grid Layout */
+@mixin grid-layout($columns, $gap: $spacing-md) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+}
+
+/*  Button Styling */
+@mixin button($bg-color: $primary-color, $text-color: $text-light) {
+    background-color: $bg-color;
+    color: $text-color;
+    padding: $spacing-sm $spacing-md;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}

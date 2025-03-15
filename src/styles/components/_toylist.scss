@@ -1,0 +1,46 @@
+@use '../variables' as *;
+@use "../mixins" as *;
+.toy-list-container {
+    display: flex;
+    gap: $spacing-lg; // Space between filter section and toy grid
+    padding: $spacing-lg;
+
+    // Left-side controls (search, sort, add button)
+    .toy-controls {
+        flex: 1; // Takes less space
+        max-width: 250px; // Set a fixed width for the filter section
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+        background: $dark-bg;
+        padding: $spacing-md;
+        border-radius: 8px;
+        color: $text-light;
+    }
+
+    
+    .toy-grid {
+        flex: 4; // Takes most of the space
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); // 5 toys per row
+        gap: $spacing-md;
+    }
+
+    // Responsive: Adjust for tablets
+    @media (max-width: $tablet) {
+        .toy-grid {
+            grid-template-columns: repeat(3, 1fr); // Show 3 per row on tablets
+        }
+    }
+
+    // Responsive: Adjust for mobile
+    @media (max-width: $mobile) {
+        .toy-grid {
+            grid-template-columns: repeat(2, 1fr); // Show 2 per row on small screens
+        }
+
+        .toy-controls {
+            max-width: 100%; // Full width on mobile
+        }
+    }
+}
