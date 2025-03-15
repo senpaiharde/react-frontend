@@ -1,42 +1,77 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
+/* ✅ Header Styling */
 .header {
-    background-color: $primary-color;
-    color: $text-light;
+    background: $light-bg;
+    color: $text-dark;
     padding: $spacing-md;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    transition: background 0.3s ease, color 0.3s ease;
+    @include box-shadow;
 
-    .logo {
+    .header__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .header__logo {
         font-size: $font-large;
         font-weight: bold;
     }
 
-    .nav-links {
+    .header__nav {
         display: flex;
         gap: $spacing-md;
 
         a {
-            color: $text-light;
             text-decoration: none;
             font-weight: bold;
+            color: $primary-color;
             transition: color 0.3s ease;
 
             &:hover {
-                color: darken($text-light, 20%);
+                color: $secondary-color;
             }
         }
     }
 
-    @include respond(mobile) {
-        flex-direction: column;
-        text-align: center;
+    .header__right {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+    }
 
-        .nav-links {
-            flex-direction: column;
-            gap: $spacing-sm;
+    .header__user {
+        font-size: $font-medium;
+    }
+
+    /* ✅ Theme Toggle Button */
+    .theme-toggle {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: $font-large;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+/* ✅ Dark Theme Styles */
+.dark-theme .header {
+    background: $dark-bg;
+    color: $text-light;
+
+    .header__nav a {
+        color: $secondary-color;
+
+        &:hover {
+            color: $primary-color;
         }
     }
 }

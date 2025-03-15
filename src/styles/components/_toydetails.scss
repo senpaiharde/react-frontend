@@ -1,0 +1,40 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.toy-details {
+    max-width: 600px;
+    margin: auto;
+    padding: $spacing-lg;
+    background: $light-bg;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+    text-align: center;
+
+    img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    h1 {
+        @include font-style($font-large, bold);
+        margin-bottom: $spacing-md;
+    }
+
+    p {
+        font-size: $font-medium;
+        margin-bottom: $spacing-sm;
+    }
+
+    .toy-actions {
+        display: flex;
+        justify-content: center;
+        gap: $spacing-md;
+        margin-top: $spacing-md;
+
+        button {
+            @include button($primary-color);
+        }
+    }
+}

@@ -1,31 +1,42 @@
-@use '../variables' as *;
-@use '../mixins' as *;
+@use "../variables" as *;
+@use "../mixins" as *;
 
-.chat-container{
-    background-color:$light-bg;
+.chat-container {
+    background: $dark-bg;
+    color: $text-light;
     padding: $spacing-md;
-    border-radius: 8px;
-    @include box-shadow;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
 
+    .chat-messages {
+        height: 200px;
+        overflow-y: auto;
+        border-radius: 5px;
+        padding: $spacing-sm;
+        background: lighten($dark-bg, 5%);
+    }
 
-.chat-messages {
-    max-width: 300px;
-    overflow-y: auto;
-}
+    .chat-input {
+        display: flex;
+        gap: $spacing-sm;
+        margin-top: $spacing-sm;
 
-.chat-input{
-    display: flex;
-    gap:$spacing-sm;
+        input {
+            flex: 1;
+            padding: $spacing-sm;
+            border-radius: 5px;
+            border: none;
+            background: lighten($dark-bg, 10%);
+            color: $text-light;
 
+            &:focus {
+                outline: 2px solid $secondary-color;
+            }
+        }
 
-input{
-    flex-grow: 1;
-    padding: $spacing-sm;
-}
-button{
-    background-color:$primary-color;
-    color:white;
-    padding: $spacing-sm;
-}
-}
+        button {
+            @include button($primary-color);
+        }
+    }
 }

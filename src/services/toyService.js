@@ -1,4 +1,3 @@
-
 import { storageService } from "./storageService";
 
 const ENTITY_TYPE = 'toys';

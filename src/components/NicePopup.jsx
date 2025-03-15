@@ -29,7 +29,7 @@ export function NicePopup({isOpen, onClose, header, footer, children }) {
         <div className="popup-content">
             <header className="popup-header">
                 <h3>{header}</h3>
-                <button onClick={onclose}>❌</button>
+                <button onClick={onClose}>❌</button>
             </header>
             <main className="popup-main">{children}</main>
             <footer className="popup-footer">{footer}</footer>

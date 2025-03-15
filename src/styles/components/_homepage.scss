@@ -1,0 +1,31 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.homepage {
+    text-align: center;
+    padding: $spacing-lg;
+
+    .welcome-text {
+        font-size: $font-large;
+        font-weight: bold;
+        margin-bottom: $spacing-md;
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: $spacing-md;
+        margin-top: $spacing-md;
+
+        button {
+            @include button($secondary-color);
+        }
+    }
+
+    .hero-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+}

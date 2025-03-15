@@ -41,7 +41,7 @@ export function ToyDetails() {
             <NicePopup isOpen={isChatOpen} 
             onClose={()=> setIsChatOpen(false)}
             header="Chat with Support"
-            footer={<button onClick={()=> setIsChatOpen(false)}>clase</button>}>
+            footer={<button onClick={()=> setIsChatOpen(false)}>close</button>}>
                 <Chat/>
             </NicePopup>
         </div>

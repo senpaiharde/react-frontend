@@ -6,7 +6,7 @@ import './styles/global.scss';
 import { ToyDetails } from './pages/toyDetails';
 import { ToyEdit } from './pages/ToyEdit';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
-
+import { Header } from './components/header';
 
 const mockUser = {name:"slava vasin"};
 function App() {
@@ -16,10 +16,15 @@ function App() {
 
 
     return (
-        <div>
-            {isOnline && <p>Welcome, {mockUser.name}</p>}
-            {!isOnline && <p>⚠ You are offline!</p>}
         <Router>
+        
+           
+        
+        <Header mockUser={mockUser}/>
+        <div>
+            {isOnline ? <p>Welcome, {mockUser.name}</p> : 
+            <p>⚠ You are offline!</p>}
+           
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/toys" element={<ToyIndex />} />
@@ -27,8 +32,9 @@ function App() {
                 <Route path="/toy/edit/:toyId?" element={<ToyEdit />} /> 
 
             </Routes>
-        </Router>
+        
         </div>
+        </Router>
     );
 }
 

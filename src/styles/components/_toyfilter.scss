@@ -1,0 +1,40 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.toy-filter {
+    background: $dark-bg;
+    color: $text-light;
+    padding: $spacing-md;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    label {
+        font-weight: bold;
+        font-size: $font-medium;
+    }
+
+    input, select {
+        padding: $spacing-sm;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        background: lighten($dark-bg, 10%);
+        color: $text-light;
+        font-size: $font-small;
+
+        &:focus {
+            outline: 2px solid $secondary-color;
+        }
+    }
+
+    button {
+        @include button($primary-color);
+        margin-top: $spacing-sm;
+    }
+
+    @include respond(mobile) {
+        flex-direction: column;
+    }
+}
