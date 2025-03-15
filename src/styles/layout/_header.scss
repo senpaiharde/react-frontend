@@ -1,30 +1,42 @@
 @use "../variables" as *;
-@use '../mixins' as *;
+@use "../mixins" as *;
 
 .header {
-  background-color: $dark-bg;
-  color: $text-light;
-  padding: $spacing-md;
-  @include flex-center;
-  justify-content: space-between;
-
-  .logo {
-    font-size: $font-large;
-    font-weight: bold;
-  }
-
-  .nav-links {
+    background-color: $primary-color;
+    color: $text-light;
+    padding: $spacing-md;
     display: flex;
-    gap: $spacing-md;
+    justify-content: space-between;
+    align-items: center;
 
-    a {
-      color: $text-light;
-      font-size: $font-medium;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: $secondary-color;
-      }
+    .logo {
+        font-size: $font-large;
+        font-weight: bold;
     }
-  }
+
+    .nav-links {
+        display: flex;
+        gap: $spacing-md;
+
+        a {
+            color: $text-light;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: darken($text-light, 20%);
+            }
+        }
+    }
+
+    @include respond(mobile) {
+        flex-direction: column;
+        text-align: center;
+
+        .nav-links {
+            flex-direction: column;
+            gap: $spacing-sm;
+        }
+    }
 }

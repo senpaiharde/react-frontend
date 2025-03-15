@@ -1,24 +1,29 @@
-@use '../variables' as *;
+@use "../variables" as *;
+@use "../mixins" as *;
 
 .toy-index {
+    display: flex;
+    gap: $spacing-lg;
     padding: $spacing-lg;
-    text-align: center;
-}
 
-.toy-index h1{
-    color:$primary-color;
-    font-size: $font-large;
-}
+    .filters {
+        width: 20%;
+        background: $dark-bg;
+        color: $text-light;
+        padding: $spacing-md;
+        border-radius: 8px;
+    }
 
-.toy-index button {
-    background-color:$primary-color;
-    color:$text-light;
-    border: none;
-    padding: $spacing-sm $spacing-md;
-    cursor: pointer;
-    transition: background 0.3 ease;
-}
+    .toy-list {
+        flex: 1;
+    }
 
-.toy-index button:hover{
-    background-color:$secondary-color;
+    @include respond(mobile) {
+        flex-direction: column;
+
+        .filters {
+            width: 100%;
+            margin-bottom: $spacing-md;
+        }
+    }
 }

@@ -1,5 +1,5 @@
 @use '../variables' as *;
-
+@use "../mixins" as *;
 .toy-list-container {
     display: flex;
     gap: $spacing-lg; // Space between filter section and toy grid

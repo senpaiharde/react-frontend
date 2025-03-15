@@ -1,23 +1,24 @@
-@use '../variables' as *;
+@use "../variables" as *;
+@use "../mixins" as *;
 
 .footer {
-    background-color:$dark-bg;
-    color:$text-light;
+    background-color: $dark-bg;
+    color: $text-light;
+    padding: $spacing-lg;
     text-align: center;
-    padding: $spacing-md;
-}
 
-.footer a{
-    color: $primary-color;
-    text-decoration: none;
-}
+    a {
+        color: $secondary-color;
+        text-decoration: none;
+        transition: color 0.3s ease;
 
-.footer a:hover{
-    color:$secondary-color;
-}
+        &:hover {
+            color: lighten($secondary-color, 10%);
+        }
+    }
 
-.footer .copyright{
-    font-size: $font-small;
-    margin-top: $spacing-sm;
-    opacity: 0.8;
+    @include respond(mobile) {
+        padding: $spacing-md;
+        font-size: $font-small;
+    }
 }
