@@ -3,7 +3,7 @@ import { ToyPreview } from './ToyPreview';
 
 export function ToyList({ toys }) {
     return (
-        <div className="toy-list">
+        <div className="toy-grid">
             {toys.map(toy => (
                 <ToyPreview key={toy._id} toy={toy} />
             ))}

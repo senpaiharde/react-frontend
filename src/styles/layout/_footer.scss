@@ -1,0 +1,23 @@
+@use '../variables' as *;
+
+.footer {
+    background-color:$dark-bg;
+    color:$text-light;
+    text-align: center;
+    padding: $spacing-md;
+}
+
+.footer a{
+    color: $primary-color;
+    text-decoration: none;
+}
+
+.footer a:hover{
+    color:$secondary-color;
+}
+
+.footer .copyright{
+    font-size: $font-small;
+    margin-top: $spacing-sm;
+    opacity: 0.8;
+}

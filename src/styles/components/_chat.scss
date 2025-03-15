@@ -1,0 +1,31 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.chat-container{
+    background-color:$light-bg;
+    padding: $spacing-md;
+    border-radius: 8px;
+    @include box-shadow;
+
+
+.chat-messages {
+    max-width: 300px;
+    overflow-y: auto;
+}
+
+.chat-input{
+    display: flex;
+    gap:$spacing-sm;
+
+
+input{
+    flex-grow: 1;
+    padding: $spacing-sm;
+}
+button{
+    background-color:$primary-color;
+    color:white;
+    padding: $spacing-sm;
+}
+}
+}

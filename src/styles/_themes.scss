@@ -1,0 +1,31 @@
+@use "./variables" as *;
+
+/* ✅ Light Theme */
+.light-theme {
+  background-color: $light-bg;
+  color: $text-dark;
+
+  a {
+    color: $primary-color;
+  }
+
+  button {
+    background-color: $secondary-color;
+    color: $text-dark;
+  }
+}
+
+/* ✅ Dark Theme */
+.dark-theme {
+  background-color: $dark-bg;
+  color: $text-light;
+
+  a {
+    color: $secondary-color;
+  }
+
+  button {
+    background-color: $primary-color;
+    color: $text-light;
+  }
+}

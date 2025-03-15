@@ -1,0 +1,24 @@
+@use '../variables' as *;
+
+.toy-index {
+    padding: $spacing-lg;
+    text-align: center;
+}
+
+.toy-index h1{
+    color:$primary-color;
+    font-size: $font-large;
+}
+
+.toy-index button {
+    background-color:$primary-color;
+    color:$text-light;
+    border: none;
+    padding: $spacing-sm $spacing-md;
+    cursor: pointer;
+    transition: background 0.3 ease;
+}
+
+.toy-index button:hover{
+    background-color:$secondary-color;
+}

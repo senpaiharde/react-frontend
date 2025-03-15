@@ -24,17 +24,19 @@ export function ToyIndex() {
     };
 
     return (
-        <div>
-            <h1>Our Toys</h1>
+        <div className='toy-list-container'>
+            <div className='toy-controls'>
+            <h1>Filter & sort</h1>
+            <ToyFilter />
             <button onClick={() => navigate('/toy/edit')}>➕ Add New Toy</button>
 
            
             {error && <p className="error">❌ {error}</p>}
-
+            </div>
             
             {loading && <p>Loading...</p>}
 
-            <ToyFilter />
+            
             <ToyList toys={toys} onRemoveToy={onRemoveToy} />
         </div>
     );

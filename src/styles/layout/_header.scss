@@ -1,0 +1,30 @@
+@use "../variables" as *;
+@use '../mixins' as *;
+
+.header {
+  background-color: $dark-bg;
+  color: $text-light;
+  padding: $spacing-md;
+  @include flex-center;
+  justify-content: space-between;
+
+  .logo {
+    font-size: $font-large;
+    font-weight: bold;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: $spacing-md;
+
+    a {
+      color: $text-light;
+      font-size: $font-medium;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+}

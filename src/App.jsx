@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { ToyIndex } from './pages/ToyIndex';
-import './styles/gobal.scss';
+import './styles/global.scss';
 import { ToyDetails } from './pages/toyDetails';
 import { ToyEdit } from './pages/ToyEdit';
 import { useOnlineStatus } from './hooks/useOnlineStatus';
