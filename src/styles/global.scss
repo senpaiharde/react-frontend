@@ -70,3 +70,20 @@ input, textarea, select {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.status-banner {
+    text-align: center;
+    padding: 2px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.online {
+    background: #4CAF50;
+    color: white;
+}
+
+.offline {
+    background: #FF5722;
+    color: white;
+}

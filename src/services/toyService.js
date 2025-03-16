@@ -1,38 +1,6 @@
-import { storageService } from "./storageService";
+import axios from "axios";
 
-const ENTITY_TYPE = 'toys';
-
-const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'];
-
-const backupToys = [
-    {
-        _id: 't101',
-        name: 'Talking Doll',
-        imgUrl: 'https://placehold.co/100x100',
-        price: 123,
-        labels: ['Doll', 'Battery Powered', 'Baby'],
-        createdAt: Date.now(),
-        inStock: true,
-    },
-    {
-        _id: 't102',
-        name: 'Puzzle Game',
-        imgUrl: 'https://placehold.co/100x100',
-        price: 45,
-        labels: ['Puzzle', 'Box game'],
-        createdAt: Date.now(),
-        inStock: false,
-    },
-];
-
-function _initToys() {
-    const toys =  storageService.query(ENTITY_TYPE);
-    if (!toys.length) {
-        backupToys.forEach(toy => storageService.post(ENTITY_TYPE, toy));
-    }
-}
-
-_initToys();
+const BASE_URL = "http://localhost:5000/api/toys"; // Backend URL
 
 export const toyService = {
     getToys,
@@ -42,22 +10,57 @@ export const toyService = {
     getLabels
 };
 
-function getToys() {
-    return storageService.query(ENTITY_TYPE);
+// ✅ GET all toys from MongoDB
+async function getToys() {
+    try {
+        const res = await axios.get(BASE_URL);
+        return res.data;
+    } catch (err) {
+        console.error("Error fetching toys:", err);
+        throw err;
+    }
 }
 
-function getToyById(toyId) {
-    return storageService.get(ENTITY_TYPE, toyId);
+// ✅ GET a single toy by ID
+async function getToyById(toyId) {
+    try {
+        const res = await axios.get(`${BASE_URL}/${toyId}`);
+        return res.data;
+    } catch (err) {
+        console.error("Error fetching toy:", err);
+        throw err;
+    }
 }
 
-function saveToy(toy) {
-    return toy._id ?  storageService.put(ENTITY_TYPE, toy) : storageService.post(ENTITY_TYPE, toy);
+// ✅ CREATE or UPDATE a toy
+async function saveToy(toy) {
+    try {
+        if (toy._id) {
+            // Update existing toy
+            const res = await axios.put(`${BASE_URL}/${toy._id}`, toy);
+            return res.data;
+        } else {
+            // Create new toy
+            const res = await axios.post(BASE_URL, toy);
+            return res.data;
+        }
+    } catch (err) {
+        console.error("Error saving toy:", err);
+        throw err;
+    }
 }
 
-function deleteToy(toyId) {
-    return  storageService.remove(ENTITY_TYPE, toyId);
+// ✅ DELETE a toy
+async function deleteToy(toyId) {
+    try {
+        await axios.delete(`${BASE_URL}/${toyId}`);
+    } catch (err) {
+        console.error("Error deleting toy:", err);
+        throw err;
+    }
 }
 
+// ✅ Get toy labels (for filtering)
 function getLabels() {
-    return labels;
+    return ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'];
 }

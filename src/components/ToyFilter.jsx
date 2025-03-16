@@ -84,7 +84,7 @@ export function ToyFilter({filterBy, }) {
 ToyFilter.propTypes = {
     filterBy: PropTypes.shape({
         name:PropTypes.string.isRequired,
-        inStock: PropTypes.oneOfType([PropTypes.string,PropTypes.bool, null]),
+        inStock: PropTypes.oneOfType([PropTypes.bool, null]),
         labels: PropTypes.arrayOf(PropTypes.string).isRequired,
         sortBy: PropTypes.string
     }).isRequired,
