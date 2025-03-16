@@ -31,8 +31,8 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color: $bg-color;
-  color: $text-light;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   transition: background 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
 }
@@ -60,6 +60,8 @@ ul, ol {
 /* ✅ Forms */
 input, textarea, select {
   font: inherit;
+  background:var(--bg-color);
+  color: var(--text-color);
 }
 
 /* ✅ Utility class for centering */

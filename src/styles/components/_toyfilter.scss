@@ -1,9 +1,8 @@
 @use "../variables" as *;
-@use "../mixins" as *;
 
 .toy-filter {
-    background: $dark-bg;
-    color: $text-light;
+    background: var(--bg-color);
+    color: var(--text-color);
     padding: $spacing-md;
     border-radius: 8px;
     display: flex;
@@ -20,21 +19,28 @@
         border: none;
         border-radius: 5px;
         width: 100%;
-        background: lighten($dark-bg, 10%);
-        color: $text-light;
+        background: var(--secondary-color);
+        color: var(--text-color);
         font-size: $font-small;
 
         &:focus {
-            outline: 2px solid $secondary-color;
+            outline: 2px solid var(--primary-color);
         }
     }
 
     button {
-        @include button($primary-color);
-        margin-top: $spacing-sm;
-    }
+        background: var(--primary-color);
+        color: var(--text-light);
+        padding: $spacing-sm;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: $font-small;
+        transition: all 0.3s ease-in-out;
 
-    @include respond(mobile) {
-        flex-direction: column;
+        &:hover {
+            filter: brightness(0.85);
+        }
+        
     }
 }

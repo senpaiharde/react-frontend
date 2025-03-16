@@ -2,18 +2,19 @@
 @use "../mixins" as *;
 
 .footer {
-    background-color: $dark-bg;
-    color: $text-light;
-    padding: $spacing-lg;
+    background: var(--bg-color);
+    color: var(--text-color);
     text-align: center;
+    padding: $spacing-md;
+    border-top: 2px solid var(--primary-color);
 
     a {
-        color: $secondary-color;
+        color: var(--secondary-color);
         text-decoration: none;
         transition: color 0.3s ease;
 
         &:hover {
-            color: lighten($secondary-color, 10%);
+            color: (var(--secondary-color), 10%);
         }
     }
 

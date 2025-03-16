@@ -1,31 +1,37 @@
 @use "./variables" as *;
 
-/* ✅ Light Theme */
-.light-theme {
-  background-color: $light-bg;
-  color: $text-dark;
-
-  a {
-    color: $primary-color;
-  }
-
-  button {
-    background-color: $secondary-color;
-    color: $text-dark;
-  }
+/*  Set Global Theme Variables */
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --primary-color: #4CAF50; // Green for buttons
+  --secondary-color: #FF9800; // Orange for accents
 }
 
-/* ✅ Dark Theme */
-.dark-theme {
-  background-color: $dark-bg;
-  color: $text-light;
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: #f5f5f5;
+  --primary-color: #FF9800; // Orange for buttons in dark mode
+  --secondary-color: #4CAF50; // Green for accents
+}
 
-  a {
-    color: $secondary-color;
-  }
+/* Apply the variables globally */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
 
-  button {
-    background-color: $primary-color;
-    color: $text-light;
+/*  Ensure buttons, inputs, and text follow the theme */
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
   }
 }
+ 

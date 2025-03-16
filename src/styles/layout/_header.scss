@@ -1,13 +1,11 @@
 @use "../variables" as *;
-@use "../mixins" as *;
 
-/* ✅ Header Styling */
 .header {
-    background: $light-bg;
-    color: $text-dark;
+    background: var(--bg-color); 
+    color: var(--text-color); 
     padding: $spacing-md;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background 0.3s ease, color 0.3s ease;
-    @include box-shadow;
 
     .header__container {
         display: flex;
@@ -20,6 +18,13 @@
     .header__logo {
         font-size: $font-large;
         font-weight: bold;
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: var(--secondary-color);
+        }
     }
 
     .header__nav {
@@ -27,13 +32,13 @@
         gap: $spacing-md;
 
         a {
+            font-size: $font-medium;
+            color: var(--text-color);
             text-decoration: none;
-            font-weight: bold;
-            color: $primary-color;
             transition: color 0.3s ease;
 
             &:hover {
-                color: $secondary-color;
+                color: var(--primary-color);
             }
         }
     }
@@ -42,36 +47,25 @@
         display: flex;
         align-items: center;
         gap: $spacing-md;
-    }
 
-    .header__user {
-        font-size: $font-medium;
-    }
-
-    /* ✅ Theme Toggle Button */
-    .theme-toggle {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: $font-large;
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: scale(1.1);
+        .header__user {
+            font-size: $font-medium;
+            font-weight: bold;
+            color: var(--text-color);
         }
-    }
-}
 
-/* ✅ Dark Theme Styles */
-.dark-theme .header {
-    background: $dark-bg;
-    color: $text-light;
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-color);
+            transition: color 0.3s ease, transform 0.3s ease;
 
-    .header__nav a {
-        color: $secondary-color;
-
-        &:hover {
-            color: $primary-color;
+            &:hover {
+                transform: scale(1.1);
+                color: var(--primary-color);
+            }
         }
     }
 }

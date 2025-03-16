@@ -1,46 +1,47 @@
 @use '../variables' as *;
 @use "../mixins" as *;
+
 .toy-list-container {
     display: flex;
-    gap: $spacing-lg; // Space between filter section and toy grid
+    gap: $spacing-lg;
     padding: $spacing-lg;
 
-    // Left-side controls (search, sort, add button)
+    // Left-side filter & controls
     .toy-controls {
-        flex: 1; // Takes less space
-        max-width: 250px; // Set a fixed width for the filter section
+        flex: 1;
+        max-width: 250px;
         display: flex;
         flex-direction: column;
         gap: $spacing-md;
-        background: $dark-bg;
+        background: var(--bg-color); // Adapt to light/dark theme
         padding: $spacing-md;
         border-radius: 8px;
-        color: $text-light;
+        color: var(--text-color);
     }
 
-    
+    // Toy grid (5 items per row)
     .toy-grid {
-        flex: 4; // Takes most of the space
+        flex: 4;
         display: grid;
-        grid-template-columns: repeat(5, 1fr); // 5 toys per row
+        grid-template-columns: repeat(5, 1fr);
         gap: $spacing-md;
     }
 
-    // Responsive: Adjust for tablets
+    // Responsive for tablets
     @media (max-width: $tablet) {
         .toy-grid {
-            grid-template-columns: repeat(3, 1fr); // Show 3 per row on tablets
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 
-    // Responsive: Adjust for mobile
+    // Responsive for mobile
     @media (max-width: $mobile) {
         .toy-grid {
-            grid-template-columns: repeat(2, 1fr); // Show 2 per row on small screens
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .toy-controls {
-            max-width: 100%; // Full width on mobile
+            max-width: 100%;
         }
     }
 }

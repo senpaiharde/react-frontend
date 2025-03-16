@@ -20,28 +20,28 @@ export function Header ({mockUser}) {
 
 
    useEffect(()=>{
-    document.documentElement.classList.remove(`${theme}-theme`);
-   }, []);
+    document.documentElement.classList.add(`${theme}-theme`);
+   }, [theme]);
 
 
 
 
 return (
     <header className="header">
-        <div>
-        <h1 className="header_">Toy Store</h1>
+        <div className="header__container">
+        <h1 className="header_logo">Toy Store</h1>
         <nav className="header__nav">
             <Link to="/">Home</Link>
             <Link to="/toys">Toys</Link>
         </nav>
 
         <div className="header__right" >
-            <p className="header__user">{mockUser.user}</p>
+            <p className="header__user">Welcome, {mockUser.user}</p>
             <button className="theme-toggle" onClick={toggleTheme}>
                         {theme === "light" ? <IoMoon /> : <IoSunny />}
                     </button>
         </div>
         </div>
     </header>
-)
+);
 }
