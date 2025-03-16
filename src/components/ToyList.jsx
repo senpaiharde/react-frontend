@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 export function ToyList({ toys }) {
     return (
         <div className="toy-grid">
-            {toys.map(toy => (
+           {toys.length === 0 ? (<p className='no-toys-message'>❌ No toys available</p>) 
+           : (toys.map(toy => (
                 <ToyPreview key={toy._id} toy={toy} />
-            ))}
+            )))}
         </div>
     );
 }
@@ -18,7 +19,7 @@ ToyList.propTypes = {
         name: PropTypes.string.isRequired,
         imgUrl: PropTypes.string,
         price: PropTypes.number.isRequired,
-        Labels: PropTypes.arrayOf(PropTypes.string),
+        labels: PropTypes.arrayOf(PropTypes.string),
         inStock: PropTypes.bool.isRequired
     })).isRequired
 };

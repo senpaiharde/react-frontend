@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+import PropTypes from "prop-types";
 
 // global inside store easy to accuss closes in clicking ouside or qescape .
 
@@ -38,3 +38,18 @@ export function NicePopup({isOpen, onClose, header, footer, children }) {
     </div>
     );
 }
+
+NicePopup.PropTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    header: PropTypes.string,
+    footer: PropTypes.node,
+    children: PropTypes.node,
+
+};
+
+NicePopup.defaultProps = {
+    header: "Popup Title",
+    footer: null,
+    children: null,
+};

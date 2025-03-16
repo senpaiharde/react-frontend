@@ -39,13 +39,13 @@ export function Header({ mockUser }) {
     </header>
   );
 }
-Header.PropTypes = {
+Header.propTypes = {
     mockUser: PropTypes.shape({
         name: PropTypes.string.isRequired,
     }),
 };
 
 Header.defaultProps = {
-    mockUser: {name: 'guest'}
+    mockUser: {name: 'guest'},
 
 }

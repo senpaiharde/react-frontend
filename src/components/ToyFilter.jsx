@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'; 
-import { useDispatch, useSelector } from 'react-redux'; 
+import { useDispatch } from 'react-redux'; 
 import { setFilter } from '../store/toySlice'; 
 import { toyService } from '../services/toyService'; 
 import { debounce } from 'lodash'; 
 import PropTypes from 'prop-types';
 
-export function ToyFilter() {
+export function ToyFilter({filterBy, }) {
     const dispatch = useDispatch();
-    const filterBy = useSelector(state => state.toy.filterBy);
+   
     const [filter, setLocalFilter] = useState(filterBy);
     const labels = toyService.getLabels()
 
@@ -84,7 +84,7 @@ export function ToyFilter() {
 ToyFilter.propTypes = {
     filterBy: PropTypes.shape({
         name:PropTypes.string.isRequired,
-        inStock: PropTypes.oneOfType([PropTypes.string,PropTypes.bool]),
+        inStock: PropTypes.oneOfType([PropTypes.string,PropTypes.bool, null]),
         labels: PropTypes.arrayOf(PropTypes.string).isRequired,
         sortBy: PropTypes.string
     }).isRequired,

@@ -4,7 +4,7 @@ import {useNavigate, useParams } from "react-router-dom";
 import { toyService } from "../services/toyService";
 import { addToyAsync, updateToyAsync } from "../store/toySlice";
 import { useUnsavedChanges } from "../hooks/useUnsavedChanges";
-
+import PropTypes from "prop-types";
 
 
 
@@ -31,7 +31,7 @@ export function ToyEdit() {
                     navigate('/toys')
                 }
             }else{
-                setToy({name:'', price:'', label:[], inStock:true});
+                setToy({name:'', price:'', labels:[], inStock:true});
             }
             setIsLoading(false);
         };
@@ -57,7 +57,7 @@ export function ToyEdit() {
     }
 
 
-    const hanldeSubmit = async e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         try{
             if(!toy.imgUrl){
@@ -80,30 +80,48 @@ export function ToyEdit() {
     if(isLoading)return<p>Loading...</p>
 
    return(<div className="toy-edit">
-    <h1>{toyId ? 'edit Toy' : 'Create Toy'}</h1>
+    <h1 className="toy-edit__title">{toyId ? 'edit Toy' : 'Create Toy'}</h1>
        {isDirty && <p className="unsaved-warning">⚠ You have unsaved changes!</p>}
 
 
-    <form onSubmit={hanldeSubmit}>
-        <label>Name:</label>
-        <input type="text" name="name" value={toy.name} onChange={handleChange} required/>
+    <form className="toy-edit__form" onSubmit={handleSubmit}>
+        <label className="toy-edit__label">Name:</label>
+        <input type="text" 
+        name="name" 
+        value={toy.name} 
+        onChange={handleChange} required
+        className="toy-edit__input"/>
 
-        <label>Price:</label>
-        <input type="number" name="price" value={toy.price} onChange={handleChange} required/>
+        <label className="toy-edit__label">Price:</label>
+        <input type="number" 
+        name="price" 
+        value={toy.price} 
+        onChange={handleChange} required
+        className="toy-edit__input"/>
 
-        <label>Name:</label>
-        <select multiple value={toy.labels} onChange={handleLabelsChange}>
+        <label className="toy-edit__label">Name:</label>
+        <select multiple value={toy.labels}
+         className="toy-edit__select" 
+        onChange={handleLabelsChange}>
             {toyService.getLabels().map(label => (
                 <option key={label} value={label} >{label}</option>
             ))}
         </select>
 
-        <label>In Stock:</label>
-        <input type="checkbox" checked={toy.inStock} onChange={handleCheckBoxChange} required/>
+        <label className="toy-edit__label">In Stock:</label>
+        <input type="checkbox" 
+        checked={toy.inStock} 
+        onChange={handleCheckBoxChange} required
+        className="toy-edit__checkbox"/>
 
-        <button type="submit">💾 Save</button>
-        <button type="button" onClick={() => navigate('/toys')}>❌ Cancel</button>
+        <button type="submit" className="btn save-btn">💾 Save</button>
+        <button type="button" onClick={() => navigate('/toys')} 
+        className="btn cancel-btn">❌ Cancel</button>
     </form>
    </div>
    )
+}
+
+ToyEdit.PropTypes = {
+    toyId: PropTypes.string,
 }

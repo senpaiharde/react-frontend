@@ -19,8 +19,8 @@ export function ToyDetails() {
         if(!selectedToy) {
             dispatch(fetchToys())
         }
-    })
-
+    },[selectedToy, dispatch]);
+    
     if(!selectedToy) return (<h2 className="toy-not-found">❌ Toy Not Found </h2>);
 
     return (
@@ -52,5 +52,16 @@ export function ToyDetails() {
 }
 
 ToyDetails.propTypes = {
-    toy: PropTypes.object
+    selectedToy: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        imgUrl:PropTypes.string,
+        price: PropTypes.number.isRequired,
+        labels: PropTypes.arrayOf(PropTypes.string),
+        createdAt:PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]).isRequired,
+        inStock: PropTypes.bool.isRequired
+    })
 };
