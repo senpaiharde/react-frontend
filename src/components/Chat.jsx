@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import PropTypes from "prop-types";
 
 
 
@@ -20,7 +20,7 @@ export function Chat() {
 
 
         setTimeout(() => {
-            const botRespone = {text:`bot says: "${newMessage}"`, sender:'Your moma' };
+            const botRespone = {text: "bot says how is your day today?", sender:'botName' };
             setMessages((prevMessages) => [...prevMessages, botRespone]);
         }, 1000);
     };
@@ -44,4 +44,13 @@ export function Chat() {
             </div>
         </div>
     );
+}
+
+Chat.PropTypes = {
+    botName: PropTypes.string,
+
+}
+
+Chat.defaultProps = {
+    botName: 'BOT'
 }

@@ -7,6 +7,7 @@
     text-align: center;
     padding: $spacing-md;
     border-top: 2px solid var(--primary-color);
+    transition: background 0.3s ease, color 0.3s ease;
 
     a {
         color: var(--secondary-color);

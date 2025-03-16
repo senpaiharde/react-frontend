@@ -5,36 +5,81 @@
     max-width: 600px;
     margin: auto;
     padding: $spacing-lg;
-    background: $light-bg;
+    background: var(--bg-color); // ✅ Now follows theme mode
+    color: var(--text-color); // ✅ Ensures text adapts to dark/light mode
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
     text-align: center;
+    transition: background 0.3s ease, color 0.3s ease;
 
-    img {
+    &__title {
+        font-size: $font-large;
+        font-weight: bold;
+        color: var(--text-color); // ✅ Ensures title follows theme
+        margin-bottom: $spacing-md;
+    }
+
+    &__image {
         width: 150px;
         height: 150px;
         object-fit: cover;
         border-radius: 5px;
     }
 
-    h1 {
-        @include font-style($font-large, bold);
-        margin-bottom: $spacing-md;
-    }
-
-    p {
+    &__price,
+    &__labels,
+    &__created {
         font-size: $font-medium;
         margin-bottom: $spacing-sm;
+        color: var(--text-color);
     }
 
-    .toy-actions {
+    &__status {
+        font-size: $font-medium;
+        font-weight: bold;
+        &.in-stock {
+            color: $primary-color;
+        }
+        &.out-stock {
+            color: $secondary-color;
+        }
+    }
+
+    &__actions {
         display: flex;
         justify-content: center;
         gap: $spacing-md;
         margin-top: $spacing-md;
 
-        button {
-            @include button($primary-color);
+        .btn {
+            @include button(var(--primary-color));
+            transition: all 0.3s ease;
+
+            &:hover {
+                filter: brightness(0.85);
+            }
+        }
+
+        .edit-btn {
+            background: var(--secondary-color);
+            &:hover {
+                filter: brightness(0.9);
+            }
+        }
+
+        .chat-btn {
+            background: (var(--primary-color), 10%);
+            &:hover {
+                filter: brightness(0.9);
+            }
         }
     }
+}
+
+
+.toy-not-found {
+    text-align: center;
+    font-size: $font-large;
+    font-weight: bold;
+    color: var(--text-color);
 }

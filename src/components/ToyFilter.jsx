@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../store/toySlice'; 
 import { toyService } from '../services/toyService'; 
 import { debounce } from 'lodash'; 
-
+import PropTypes from 'prop-types';
 
 export function ToyFilter() {
     const dispatch = useDispatch();
@@ -79,4 +79,14 @@ export function ToyFilter() {
     </div>
     );
 
+}
+
+ToyFilter.propTypes = {
+    filterBy: PropTypes.shape({
+        name:PropTypes.string.isRequired,
+        inStock: PropTypes.oneOfType([PropTypes.string,PropTypes.bool]),
+        labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+        sortBy: PropTypes.string
+    }).isRequired,
+    setFilter: PropTypes.func.isRequired
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export function ToyPreview({ toy }) {
@@ -25,3 +25,14 @@ export function ToyPreview({ toy }) {
         </div>
     );
 }
+
+ToyPreview.propTypes = {
+    toys:PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        imgUrl: PropTypes.string,
+        price: PropTypes.number.isRequired,
+        Labels: PropTypes.arrayOf(PropTypes.string),
+        inStock: PropTypes.bool.isRequired
+    })).isRequired
+};

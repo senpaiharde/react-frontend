@@ -26,12 +26,12 @@ export function NicePopup({isOpen, onClose, header, footer, children }) {
 
     return ( 
     <div className="popup-overlay" onClick={handleOutsideClick}>
-        <div className="popup-content">
-            <header className="popup-header">
-                <h3>{header}</h3>
-                <button onClick={onClose}>❌</button>
-            </header>
-            <main className="popup-main">{children}</main>
+        <div className="popup">
+            <div className="popup__header">
+                <h2>{header}</h2>
+                <button className="popup__close" onClick={onClose}>❌</button>
+            </div>
+            <main className="popup-body">{children}</main>
             <footer className="popup-footer">{footer}</footer>
         </div>
 

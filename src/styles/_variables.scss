@@ -1,52 +1,55 @@
+// ✅ Primary Colors
+$primary-color: #4CAF50;  // Green
+$secondary-color: #FF9800; // Orange
 
-$primary-color: #4CAF50;  // Main green color
-$secondary-color: #FF9800; // Accent orange color
+// ✅ Background Colors
+$dark-bg: #1e1e1e;
+$light-bg: #ffffff;
 
-$dark-bg: #1e1e1e;       // Dark mode background
-$light-bg: #ffffff;      // Light mode background
+// ✅ Text Colors
+$text-light: #f5f5f5;
+$text-dark: #333333;
 
-$text-light: #f5f5f5;    // Light mode text
-$text-dark: #333333;     // Dark mode text
-
+// ✅ Default Background Variable
 $bg-color: $dark-bg !default;
 
+// ✅ Spacing (Padding, Margins)
 $spacing-sm: 8px;
 $spacing-md: 16px;
 $spacing-lg: 32px;
 
-//  Font sizes
+// ✅ Font sizes
 $font-small: 14px;
 $font-medium: 18px;
 $font-large: 24px;
 
-//  Breakpoints 
+// ✅ Breakpoints
 $mobile: 480px;
 $tablet: 768px;
 $desktop: 1024px;
 
-
-:root{
-    --light-bg : #ffffff;
-    --dark-bg : #1e1e1e;
-    --text-light: #f5f5f5;
-    --text-dark: #333333;
-    --primary-color: #4CAF50;
-    --secondary-color: #ff9800;
-
-  
-
+/* ✅ Light/Dark mode CSS Variables */
+:root {
+  --bg-color: #{$light-bg};
+  --text-color: #{$text-dark};
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
 }
 
+/* ✅ Dark Theme */
 .dark-theme {
-    --bg-color: var(--dark-bg);
-    --text-color: var(--text-light);
-    --primary-color: var(--secondary-color);
-    --secondary-color: var(--primary-color);
+  --bg-color: #{$dark-bg};
+  --text-color: #{$text-light};
+
+  /* ✅ Fix: Swap primary & secondary colors in dark mode */
+  --primary-color: #{$secondary-color};
+  --secondary-color: #{$primary-color};
 }
 
+/* ✅ Light Theme */
 .light-theme {
-    --bg-color: var(--light-bg);
-    --text-color: var(--text-dark);
-    --primary-color: var(--primary-color);
-    --secondary-color: var(--secondary-color);
+  --bg-color: #{$light-bg};
+  --text-color: #{$text-dark};
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
 }

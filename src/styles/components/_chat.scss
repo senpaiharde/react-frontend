@@ -1,42 +1,75 @@
 @use "../variables" as *;
-@use "../mixins" as *;
 
 .chat-container {
-    background: $dark-bg;
-    color: $text-light;
-    padding: $spacing-md;
-    border-radius: 10px;
+    width: 100%;
     max-width: 400px;
     margin: auto;
+    background: var(--bg-color);
+    padding: $spacing-md;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transition: background 0.3s ease, color 0.3s ease;
+}
 
-    .chat-messages {
-        height: 200px;
-        overflow-y: auto;
-        border-radius: 5px;
+.chat-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: $spacing-sm;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+}
+
+/* ✅ User Messages */
+.user-msg {
+    align-self: flex-end;
+    background: var(--primary-color);
+    color: var(--text-light);
+    padding: $spacing-sm;
+    border-radius: 8px;
+    max-width: 75%;
+}
+
+/* ✅ Bot Messages */
+.bot-msg {
+    align-self: flex-start;
+    background: var(--secondary-color);
+    color: var(--text-dark);
+    padding: $spacing-sm;
+    border-radius: 8px;
+    max-width: 75%;
+}
+
+.chat-input {
+    display: flex;
+    gap: $spacing-sm;
+    margin-top: $spacing-md;
+
+    input {
+        flex: 1;
         padding: $spacing-sm;
-        background: lighten($dark-bg, 5%);
+        border-radius: 5px;
+        border: none;
+        background: var(--bg-color);
+        color: var(--text-color);
+        transition: background 0.3s ease, color 0.3s ease;
+
+        &:focus {
+            outline: 2px solid var(--primary-color);
+        }
     }
 
-    .chat-input {
-        display: flex;
-        gap: $spacing-sm;
-        margin-top: $spacing-sm;
+    button {
+        background: var(--primary-color);
+        color: var(--text-light);
+        border: none;
+        padding: $spacing-sm;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
 
-        input {
-            flex: 1;
-            padding: $spacing-sm;
-            border-radius: 5px;
-            border: none;
-            background: lighten($dark-bg, 10%);
-            color: $text-light;
-
-            &:focus {
-                outline: 2px solid $secondary-color;
-            }
-        }
-
-        button {
-            @include button($primary-color);
+        &:hover {
+            filter: brightness(0.85);
         }
     }
 }
