@@ -64,11 +64,9 @@ export function ToyEdit() {
                 toy.imgUrl = "https://placehold.co/100x100";
             }
             if(toy._id){
-                const updatedToy = await toyService.saveToy(toy);
-                dispatch(updateToyAsync(updatedToy));
+                dispatch(updateToyAsync(toy));
             } else{
-                const newToy = await toyService.saveToy(toy);
-                dispatch(addToyAsync(newToy));
+                dispatch(addToyAsync(toy));
             }
             setIsDirty(false);
             navigate('/toys');
@@ -99,7 +97,7 @@ export function ToyEdit() {
         onChange={handleChange} required
         className="toy-edit__input"/>
 
-        <label className="toy-edit__label">Name:</label>
+        <label className="toy-edit__label">Labels:</label>
         <select multiple value={toy.labels}
          className="toy-edit__select" 
         onChange={handleLabelsChange}>
@@ -111,7 +109,7 @@ export function ToyEdit() {
         <label className="toy-edit__label">In Stock:</label>
         <input type="checkbox" 
         checked={toy.inStock} 
-        onChange={handleCheckBoxChange} required
+        onChange={handleCheckBoxChange}
         className="toy-edit__checkbox"/>
 
         <button type="submit" className="btn save-btn">💾 Save</button>
@@ -122,6 +120,6 @@ export function ToyEdit() {
    )
 }
 
-ToyEdit.PropTypes = {
+ToyEdit.propTypes = {
     toyId: PropTypes.string,
-}
+};

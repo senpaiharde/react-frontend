@@ -89,6 +89,8 @@ const toySlice = createSlice({
         filterBy: { name: '', inStock: undefined, labels: [], sortBy: '' },
         loading: false,
         error: null,
+        deleteLoading: false,
+        deleteError: null,
     },
     reducers: {
         

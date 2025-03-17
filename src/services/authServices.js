@@ -15,13 +15,15 @@ async function signup(userData) {
 
 async function login(userData) {
     try {
+        console.log("Sending login request:", userData); // ✅ Debug log
         const res = await axios.post(`${BASE_URL}/login`, userData);
+        console.log("Login response:", res.data); // ✅ Debug log
         const {token, isAdmin, fullname} = res.data;
 
-        localStorage.getItem('user', JSON.stringify({token, isAdmin, fullname}));
+        localStorage.setItem('user', JSON.stringify({token, isAdmin, fullname}));
         return res.data;
     } catch (err) {
-        console.error("login Error:", err);
+        console.error("Login Error:", err.response?.data || err.message);
         throw err;
     }
 }
