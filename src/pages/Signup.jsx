@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../store/authSlice";
+import { signUp } from "../store/authSlice";
 
 
 
 
-export function Login() {
-    const [formData, setFormData] = useState({username:'', password:''});
+export function Signup() {
+    const [formData, setFormData] = useState({username:'', password:'', fullname:''});
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {error, isLoading} = useSelector(state => state.auth)
@@ -19,16 +19,19 @@ export function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(loginUser(formData)).then((res) => {
-            if(!res.error)navigate('/')
+        dispatch(signUp(formData)).then((res) => {
+            if(!res.error)navigate('/login')
         });
     };
 
     return(
-        <div className="Login">
-            <h2>Login</h2>
+        <div className="signup">
+            <h2>Signup</h2>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
+                <input type="text" 
+                name="fullname" 
+                placeholder="Full Name" onChange={handleChange} required/>
                 <input type="text" 
                 name="username" 
                 placeholder="usermame" onChange={handleChange} required/>
@@ -36,8 +39,9 @@ export function Login() {
                 name="password" 
                 placeholder="password" onChange={handleChange} required/>
                 <button type="submit" disabled={isLoading}>Submit</button>
-                <Link to='/signup'>
-                <button className="signup-btn">SignUp</button></Link>
+                <Link to='/login' >
+                <p>Have User?</p>
+                <button>Login</button></Link>
             </form>
         </div>
     )

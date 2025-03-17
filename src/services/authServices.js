@@ -1,5 +1,5 @@
 import axios from "axios";
-import { json } from "express";
+
 
 const BASE_URL = "http://localhost:5000/api/users";
 
@@ -18,7 +18,7 @@ async function login(userData) {
         const res = await axios.post(`${BASE_URL}/login`, userData);
         const {token, isAdmin, fullname} = res.data;
 
-        localStorage.getItem('user', json.stringify({token, isAdmin, fullname}));
+        localStorage.getItem('user', JSON.stringify({token, isAdmin, fullname}));
         return res.data;
     } catch (err) {
         console.error("login Error:", err);
@@ -32,7 +32,7 @@ function logout() {
 
 function getUserFromLocalStorage() {
     const user = localStorage.getItem('user');
-    return user ? json.parse(user) : null;
+    return user ? JSON.parse(user) : null;
 }
 
 

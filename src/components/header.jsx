@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import PropTypes from "prop-types";
+import { logout } from "../store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
-export function Header({ mockUser }) {
+export function Header() {
+
+  const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const toggleTheme = () => {
@@ -18,6 +23,10 @@ export function Header({ mockUser }) {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   return (
     <header className="header">
       <div className="header__container">
@@ -30,7 +39,14 @@ export function Header({ mockUser }) {
         </nav>
 
         <div className="header__right">
-          <p className="header__user">Welcome, {mockUser?.name  || "Guest"}</p>
+          {user ? (<div className="header__user">
+            <p>Welcome, {user.fullname}!</p>
+            <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          </div>) : (
+            <Link to='/login'>
+                <button className="login-btn">Login</button>
+            </Link>
+          )}
           <button className="theme-toggle" onClick={toggleTheme}>
             {theme === "light" ? <IoMoon /> : <IoSunny />}
           </button>

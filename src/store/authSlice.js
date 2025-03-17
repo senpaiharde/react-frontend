@@ -5,16 +5,17 @@ export const loginUser = createAsyncThunk('auth/login', async (userData, {reject
     try{
         return await authService.login(userData);
     }catch(err){
-        return rejectWithValue(err.response.data.message);
+        return rejectWithValue(err.response?.data?.message|| "Login failed");
     }
 });
 
 
 export const signUp = createAsyncThunk('auth/signup', async (userData, {rejectWithValue}) => {
     try{
-        return await authService.signup(userData);
+         await authService.signup(userData);
+         return 'Signup successful';
     }catch(err){
-        return rejectWithValue(err.response.data.message);
+        return rejectWithValue(err.response?.data?.message|| "Signup failed");
     }
 });
 
@@ -38,14 +39,15 @@ const authSlice = createSlice({
             .addCase(loginUser.fulfilled, (state,action) => {
                 state.user = action.payload;
                 state.isLoading = false;
+                state.error = null;
             })
             .addCase(loginUser.rejected, (state,action)=>{
                 state.error = action.payload;
                 state.isLoading = false;
             })
             .addCase(signUp.pending,(state) => {state.isLoading = true})
-            .addCase(signUp.fulfilled, (state,action)=> {
-                state.user = action.payload;
+            .addCase(signUp.fulfilled, (state)=> {
+                state.error = null;
                 state.isLoading = false;
             })
             .addCase(signUp.rejected, (state,action) => {
