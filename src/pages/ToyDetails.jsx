@@ -4,7 +4,7 @@ import {  useSelector } from "react-redux";
 import { toyService } from "../services/toyService";
 import { NicePopup } from "../components/nicePopup";
 import { Chat } from "../components/chat";
-
+import moment from "moment";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -53,6 +53,27 @@ export function ToyDetails() {
             console.error("❌ Error sending message:", err.response ? err.response.data : err);
         }
     };
+
+    const handleDeleteMessage = async (msgId, event) => {
+        event.stopPropagation();
+        if (!user || !user.isAdmin) {
+            alert("Only admins can delete messages!");
+            return;
+        }
+    
+        console.log("🗑 Deleting message:", msgId);
+        try {
+            const headers = { Authorization: `Bearer ${user.token}` };
+            const res = await axios.delete(
+                `http://localhost:5000/api/toys/${toyId}/msg/${msgId}`,
+                { headers }
+            );
+            console.log("✅ Message deleted successfully:", res.data);
+            setToy(res.data);
+        }catch(err){
+            console.error("❌ Error deleting message:", err.response ? err.response.data : err);
+        }
+    }
     
     if(!toy) return (<h2 className="toy-not-found">❌ Toy Not Found </h2>);
 
@@ -81,6 +102,12 @@ export function ToyDetails() {
                 {toy.msgs.map((msg)=> (
                     <li key={msg.id}>
                         <strong>{msg.by?.fullname || "Unknown User"}:</strong>{msg.txt}
+                        <div className="msg-meta">
+                            <small>{moment(msg.id).format("DD/MM/YY HH:mm")}</small>
+                            {user?.isAdmin && (
+                                <button className="delete-btn" onClick={(event) => handleDeleteMessage(msg.id, event)}>Delete</button>
+                            )}
+                        </div>
                     </li>
                 ))}
             </ul>
