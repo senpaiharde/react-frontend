@@ -18,7 +18,7 @@ export function Dashboard() {
             console.warn("⚠ No toys available for charts, fetching...");
             dispatch(fetchToys()).then(() => setHasFetched(true)); 
         }
-    }, [dispatch, toys.length, hasFetched]); 
+    }, [dispatch,toys.length, hasFetched]); 
 
 
     const processChartData = (toys) => {
@@ -38,9 +38,17 @@ export function Dashboard() {
 
     
     useEffect(() => {
-        setChartData(processChartData(toys));
-        console.log("📊 Chart Data Updated:", processChartData(toys));
-    }, [toys]); 
+        const newChartData = processChartData(toys);
+        if (JSON.stringify(newChartData) !== JSON.stringify(chartData)) {
+            setChartData(newChartData);
+            console.log("📊 Chart Data Updated:", newChartData);
+        }
+    }, [toys, chartData]);  
+
+    const salesData = toys.map((toy, index) => ({
+        day: `Day ${index + 1}`,
+        sales: Math.floor(Math.random() * (toy.price || 50))
+    }));
 
 
     return(
@@ -49,7 +57,7 @@ export function Dashboard() {
             {toys.length === 0 ? (<p>Loading Data...</p>) : (
             <div className="charts-container">
                 <div className="chart">
-                    <h2>Inventory by Label</h2>
+                    <h2 className="chart-title">Inventory by Label</h2>
                     <ResponsiveContainer>
                         <BarChart data={chartData}>
                             <XAxis dataKey='label'/>
@@ -62,27 +70,35 @@ export function Dashboard() {
                 </div>
                 <div className="chart">
                 <h2 className="chart-title">Price Distribution</h2>
-                    <ResponsiveContainer width='100%' height={300}>
+                {chartData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
                         <PieChart>
-                            <Pie data={chartData} dataKey='avgPrice' nameKey='label' fill="#8884d8" label/>
-                            <Tooltip/>
-                            </PieChart>
-                    </ResponsiveContainer>
+                          <Pie 
+                           data={chartData} 
+                           dataKey="avgPrice" 
+                           nameKey="label" 
+                           fill="#8884d8" 
+                           label 
+                          />
+                          <Tooltip />
+                        </PieChart>
+                     </ResponsiveContainer>
+                          ) : <p>No price data available.</p>}
+
                 </div>
                 <div className="chart">
                   <h2 className="chart-title">Sales Over Time</h2>
-                    <ResponsiveContainer width="100%" height={300}> 
-                    <LineChart data={Array.from({ length: 7 }, (_, i) => ({ 
-                                   day: `Day ${i + 1}`, 
-                                 sales: Math.floor(Math.random() * 100) 
-                            }))}>
-                            <XAxis dataKey='day'/>
-                            <YAxis/>
-                            <Tooltip/>
-                            <Legend/>
-                            <Bar type="monotone" dataKey='sales' stroke="#ff7300"/>
-                             </LineChart>
-                    </ResponsiveContainer>
+                  {salesData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={salesData}>
+                     <XAxis dataKey="day" />
+                     <YAxis />
+                     <Tooltip />
+                     <Legend />
+                     <Bar type="monotone" dataKey="sales" stroke="#ff7300" />
+                     </LineChart>
+                     </ResponsiveContainer>
+                      ) : <p>No sales data available.</p>}
                 </div>
             </div>
             )}

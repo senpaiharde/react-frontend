@@ -68,15 +68,15 @@ export function ToyEdit() {
     
         try {
             if (!toy.imgUrl) {
-                toy.imgUrl = "https://placehold.co/100x100"; // ✅ Default image if none provided
+                toy.imgUrl = "https://placehold.co/100x100"; // 
             }
     
             if (toy._id) {
                 console.log("🔄 Updating toy:", toy);
-                dispatch(updateToyAsync({ updatedToy: toy, token: user.token })); // ✅ Pass token
+                dispatch(updateToyAsync({ updatedToy: toy, token: user.token }));
             } else {
                 console.log("➕ Adding new toy:", toy);
-                dispatch(addToyAsync({ newToy: toy, token: user.token })); // ✅ Pass token
+                dispatch(addToyAsync({ newToy: toy, token: user.token })); 
             }
     
             setIsDirty(false);
