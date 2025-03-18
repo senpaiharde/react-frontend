@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {useNavigate, useParams } from "react-router-dom";
 import { toyService } from "../services/toyService";
 import { addToyAsync, updateToyAsync } from "../store/toySlice";
@@ -12,6 +12,7 @@ export function ToyEdit() {
     const { toyId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
 
     const [toy, setToy] = useState(null)
@@ -57,23 +58,35 @@ export function ToyEdit() {
     }
 
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
-            if(!toy.imgUrl){
-                toy.imgUrl = "https://placehold.co/100x100";
+    
+        if (!user || !user.token) {
+            alert("🚨 You must be logged in as an admin to add or update a toy.");
+            return;
+        }
+    
+        try {
+            if (!toy.imgUrl) {
+                toy.imgUrl = "https://placehold.co/100x100"; // ✅ Default image if none provided
             }
-            if(toy._id){
-                dispatch(updateToyAsync(toy));
-            } else{
-                dispatch(addToyAsync(toy));
+    
+            if (toy._id) {
+                console.log("🔄 Updating toy:", toy);
+                dispatch(updateToyAsync({ updatedToy: toy, token: user.token })); // ✅ Pass token
+            } else {
+                console.log("➕ Adding new toy:", toy);
+                dispatch(addToyAsync({ newToy: toy, token: user.token })); // ✅ Pass token
             }
+    
             setIsDirty(false);
-            navigate('/toys');
-        }catch(error){
-            alert("error saving Toy:"+ error.meesage);
+            navigate("/toys");
+        } catch (error) {
+            console.error("❌ Error saving toy:", error);
+            alert("Error saving toy: " + error.message);
         }
     };
+    
 
     if(isLoading)return<p>Loading...</p>
 

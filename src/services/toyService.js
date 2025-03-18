@@ -33,15 +33,16 @@ async function getToyById(toyId) {
 }
 
 // ✅ CREATE or UPDATE a toy
-async function saveToy(toy) {
+async function saveToy(toy, token) {
     try {
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
         if (toy._id) {
             // Update existing toy
-            const res = await axios.put(`${BASE_URL}/${toy._id}`, toy);
+            const res = await axios.put(`${BASE_URL}/${toy._id}`, toy, {headers});
             return res.data;
         } else {
             // Create new toy
-            const res = await axios.post(BASE_URL, toy);
+            const res = await axios.post(BASE_URL, toy ,{headers});
             return res.data;
         }
     } catch (err) {
@@ -51,9 +52,10 @@ async function saveToy(toy) {
 }
 
 // ✅ DELETE a toy
-async function deleteToy(toyId) {
+async function deleteToy(toyId,token) {
     try {
-        await axios.delete(`${BASE_URL}/${toyId}`);
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        await axios.delete(`${BASE_URL}/${toyId}`,{headers});
     } catch (err) {
         console.error("Error deleting toy:", err);
         throw err;

@@ -10,6 +10,7 @@ import { Header } from './components/header';
 import PropTypes from 'prop-types';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
+import { Dashboard } from './pages/Dashboard';
 
 const mockUser = {name:"slava vasin"};
 function App() {
@@ -29,6 +30,9 @@ function App() {
                 {isOnline ? "✅ You are online" : "⚠ You are offline"}
             </div>
             <Routes>
+                
+                <Route path="/dashboard" element={<Dashboard />} />
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/" element={<HomePage />} />

@@ -36,6 +36,7 @@ export function Header() {
         <nav className="header__nav">
           <Link to="/">Home</Link>
           <Link to="/toys">Toys</Link>
+          <Link to="/dashboard">dashboard</Link>
         </nav>
 
         <div className="header__right">

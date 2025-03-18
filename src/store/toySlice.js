@@ -7,7 +7,16 @@ import { toyService } from '../services/toyService';
  const fetchToys = createAsyncThunk('/toys/fetchToys', async (_, { getState, rejectWithValue }) => {
     try {
         const state = getState().toy;
+
+
+
+        if(state.toys.length > 0) {
+            console.warn("⚠ Stopping fetch! Toys already loaded.");
+            return state.toys;
+        }
+        console.log("🛠 Fetching Toys from API...");
         let toys = await toyService.getToys();
+        console.log("✅ API Response:", toys.length, "toys found.");
 
         //  Apply filters
         if (state.filterBy.name) {
@@ -38,6 +47,7 @@ import { toyService } from '../services/toyService';
 
         return toys;
     } catch (error) {
+        console.error("❌ Error Fetching Toys:", error);
         return rejectWithValue(error.message);
     }
 });
@@ -57,9 +67,9 @@ import { toyService } from '../services/toyService';
 /**
  * Async Thunk: Add New Toy
  */
- const addToyAsync = createAsyncThunk('/toys/addToy', async (newToy, { rejectWithValue }) => {
+ const addToyAsync = createAsyncThunk('/toys/addToy', async ({ newToy, token }, { rejectWithValue }) => {
     try {
-        const savedToy = await toyService.saveToy(newToy);
+        const savedToy = await toyService.saveToy(newToy,token);
         return savedToy;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -69,9 +79,9 @@ import { toyService } from '../services/toyService';
 /**
  * Async Thunk: Update Existing Toy
  */
- const updateToyAsync = createAsyncThunk('/toys/updateToy', async (updatedToy, { rejectWithValue }) => {
+ const updateToyAsync = createAsyncThunk('/toys/updateToy', async ({ updatedToy, token }, { rejectWithValue }) => {
     try {
-        const savedToy = await toyService.saveToy(updatedToy);
+        const savedToy = await toyService.saveToy(updatedToy,token);
         return savedToy;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -101,6 +111,9 @@ const toySlice = createSlice({
         setFilter: (state, action) => {
             state.filterBy = action.payload;
         },
+        setToys: (state,action) => {
+            state.toys = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -110,10 +123,18 @@ const toySlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchToys.fulfilled, (state, action) => {
+                if(!action.payload.length){
+                    console.warn("⚠ No toys returned from API. Keeping existing state.");
+                    return;
+                }
+
+
+                console.log("🎯 Redux: Setting toys in state:", action.payload);
                 state.toys = action.payload;
                 state.loading = false;
             })
             .addCase(fetchToys.rejected, (state, action) => {
+                console.error("❌ Fetch Error:", action.payload);
                 state.loading = false;
                 state.error = action.payload;
             })
